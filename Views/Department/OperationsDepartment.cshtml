@@ -1,0 +1,47 @@
+﻿@model  Registration_Project.Models.EmployeeModel
+@{
+    ViewBag.Title = "OperationsDepartment";
+}
+@{
+  var result=  ViewData["OperationResult"] as Registration_Project.Models.EmployeeModel
+} 
+  <h2>OperationsDepartment</h2>
+
+<table>
+    <tr>
+        <th>Employee Id</th>
+        <th>Employee Name</th>
+        <th>Email Id</th>
+        <th>Age</th>
+          <th>Phone</th>
+          <th>Address</th>
+          <th>Gender</th>
+          <th>Designation</th>
+          <th>Date Of Join</th>
+          <th>Salary</th>
+        @*<th>IsActive</th>*@
+        <th>Department Id</th>
+        @*<th>Password</th>*@
+
+        <th>Blood Group</th>
+        
+    </tr>
+    <tr>
+    <tr align="center">
+        <td>@result.EmpId</td>
+        <td>@result.EmpName </td>
+        <td>@result.EmailId </td>
+        <td>@result.Age </td>
+        <td>@result.Phone </td>
+        <td>@result.Address </td>
+        <td>@result.Gender </td>
+        <td>@result.Designation </td>
+        <td>@result.DOJ </td>
+        <td>@result.Salary </td>
+        <td>@result.DepartmentId</td>
+        <td>@result.BloodGroup</td>
+    </tr>
+</table>
+
+
+

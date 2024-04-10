@@ -1,0 +1,215 @@
+﻿@model Registration_Project.Models.EmployeeModel
+
+@{ ViewBag.Title = "Insert"; }
+<title>REGISTRATION FORM</title>
+@*<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">*@
+
+@*<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>*@
+<link href="~/CSS/Style.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/JS/Jquery.js"></script>
+
+
+@*<script>
+
+    $(document).ready(function () {
+
+        $("#dateofjoin").datepicker();
+
+    });
+
+</script>*@
+
+
+
+
+
+<div class="container BgImg1 ">
+
+    <div class="BGColor">
+        <h2 align="center">REGISTRATION FORM</h2>
+
+        <form id="registrationForm" action="@Url.Action("Insert", "Registration")" method="post">
+            
+
+            <div style="text-align:right">
+                <a href="@Url.Action("DisplayEmpList","Registration")" style="color:blue">Back to Employee Details</a>
+            </div>
+
+            <div class="col-sm-12">
+
+                <div class="form-group col-sm-12">
+
+                    <label for="name" class="col-sm-3 spnStar">FullName</label>
+
+                    <input type="text" id="name" name="EmpName" placeholder="Enter FullName" class="form-control radio-inline col-sm-6" title="Enter Your Full Name" autofocus />
+
+                    <span class="error" id="nameError"></span>
+
+                </div>
+
+
+                <div class="form-group col-sm-12">
+
+                    <label for="email" id="lblColour" class="col-sm-3 spnStar ">EmailId </label>
+
+                    <input type="email" id="email" name="EmailId" placeholder="name@example.com" class="form-control radio-inline col-sm-6"
+                           title="Enter Your Email Id ">
+                    @*@Html.ValidationMessageFor(model => model.EmailId,"",new{@class="text-danger"})*@
+                    @*@Html.ValidationSummary(true, "", new { @class = "text-danger" })*@
+                    <span class="error" id="emailError"></span>
+
+                </div>
+                <div class="form-group col-sm-12">
+                    <label for="pass" id="lblColour" class="col-sm-3 spnStar">Password </label>
+                    <input type="password" id="pass" name="Password" placeholder="Enter Passwprd" class="form-control radio-inline col-sm-6" />
+                    @*<i class="fa fa-eye float-right" style="margin-top:-25px;margin-right:6px"></i>*@
+                    <span class="error" id="passError"></span>
+                </div>
+                <div class="form-group col-sm-12">
+                    <label for="conpass" id="lblColour" class="col-sm-3 spnStar">Confirm Password </label>
+                    <input type="password" id="conpass" name="ConfirmPassword" placeholder="Re-type your password" class="form-control radio-inline col-sm-6" />
+                    <span class="error" id="conpassError"></span>
+                </div>
+                <div class="form-group col-sm-12">
+                    <label for="age" id="lblColour" class="col-sm-3 spnStar">Age </label>
+                    <input type="text" id="age" name="Age" placeholder="Enter Age" class="form-control radio-inline col-sm-6" />
+                    <span class="error" id="ageError"></span>
+                </div>
+
+                <div class="form-group col-sm-12">
+
+                    <label for="phone" id="lblColour" class="col-sm-3 spnStar">Phone </label>
+
+                    <input type="number" id="phone" name="phone" placeholder="Enter PhoneNo" class="form-control radio-inline">
+
+                    <span class="error" id="phoneError"></span>
+
+                </div>
+
+
+
+                <div class="form-group col-sm-12">
+
+                    <label class="col-sm-3">Gender</label>
+
+                    <input type="radio" id="male" name="gender" value="Male" checked> Male
+
+                    <input type="radio" id="female" name="gender" value="Female"> Female
+
+                    <span class="error" id="genderError"></span>
+
+                </div>
+                <div class="form-group col-sm-12">
+                    <label for="bloodgrp" class="col-sm-3">Blood Group</label>
+                    <select id="bloodgrp" name="BloodGroup" class="form-control radio-inline">
+                        <option value="0">Select Blood Group</option>
+                        <option value="A+">A+</option>
+                        <option value="A-">A-</option>
+                        <option value="B+">B+</option>
+                        <option value="B-">B-</option>
+                        <option value="AB+">AB+</option>
+                        <option value="AB-">AB-</option>
+                        <option value="O+">O+</option>
+                        <option value="O-">O-</option>
+
+                    </select>
+                    <span class="error" id="bloodgrpError"></span>
+
+                </div>
+
+                <div class="form-group col-sm-12">
+
+                    <label for="designation" id="lblColour" class="col-sm-3 spnStar">Designation </label>
+
+                    <select id="designation" name="Designation" placeholder="Enter your Designation" class="form-control  radio-inline">
+                        <option value="0">Select Designation</option>
+                        <option value=".Net Developer">.Net Developer</option>
+                        <option value="Java Developer">Java Developer</option>
+                        <option value="Python Developer">Python Developer</option>
+                    </select>
+                    <span class="error" id="designationError"></span>
+
+                </div>
+
+                <div class="form-group col-sm-12">
+
+
+                    <label for="dateofjoin" id="lblColour" class="col-sm-3 spnStar">Date of Join </label>
+
+                    <input type="text" id="dateofjoin" name="DOJ" class="form-control radio-inline" placeholder="Enter Your Date of Joining">
+
+                    <span class="error" id="dateofjoinError"></span>
+
+                </div>
+
+
+
+                <div class="form-group col-sm-12">
+
+                    <label for="salary" id="lblColour" class="col-sm-3 spnStar">Salary </label>
+
+                    <input type="number" id="salary" name="salary" placeholder="Enter Salary" class="form-control radio-inline">
+
+                    <span class="error" id="salaryError"></span>
+
+                </div>
+
+                @*<div class="form-group">
+
+                    <label for="active" class="col-sm-2 ">Active</label>
+
+                    <input type="checkbox" id="active" name="ISactive" class="radio-inline">
+
+
+                </div>*@
+
+                <div id="lblColour" class="form-group col-sm-12">
+
+                    <label class="col-sm-3 spnStar ">Department Number</label>
+
+                    <select class="form-control" id="deptno" name="DepartmentId">
+
+                        <option value="0">Select Department</option>
+
+                        <option value="10">IT</option>
+
+                        <option value="20">Operations</option>
+
+                        <option value="30">HR</option>
+                    </select>
+
+                    <span class="error" id="departmentError"></span>
+
+                </div>
+
+                <div class="form-group col-sm-12">
+
+                    <label for="address" class="col-sm-3">Address</label>
+
+                    @*<input type="" id="address" name="address" placeholder="Enter Address" class="form-control radio-inline" />*@
+
+                    <textarea id="address" name="address" rows="5" placeholder="Enter Address" class="form-control radio-inline"></textarea>
+
+                    <span class="error" id="addressError"></span>
+
+                </div>
+                <div class="btncontainer col-sm-12">
+                    <div class="form-group btnmargin ">
+
+                        <input type="submit" value="Register" class=" btn btn-primary">
+
+                    </div>
+
+                    <div class="form-group btnmargin">
+                        <input type="reset" value="Cancel" class="btn btn-danger " />
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+</div>

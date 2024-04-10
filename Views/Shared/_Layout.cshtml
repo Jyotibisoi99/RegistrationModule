@@ -1,0 +1,89 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+  
+</head>
+<body>
+    <nav class="navbar navbar-default">
+        
+        <div class="container-fluid">
+            <div style="display:flex;flex-direction:row;justify-content:space-evenly;padding-top:12px;padding-bottom:-15px;margin-left:10px">
+                <div>
+                    <img class="LayoutImglogo" src="~/Images/ajalogo.jpeg" />
+                </div>
+                <div>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Home</a>
+                    </li>
+                </div>
+                <div>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">About Us</a>
+                    </li>
+                </div>
+                <div>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contact Us</a>
+                    </li>
+                </div>
+
+            </div>
+
+        </div>
+
+    </nav>
+    <style>
+        .navbar navbar-default {
+            justify-content: center;
+        }
+    </style>
+    @*<div class="navbar navbar-inverse navbar-fixed-top">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                    </div>
+                    <div class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav">
+        <img src="~/Images/registrationimg.jpg" />
+                            <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                            <li>@Html.ActionLink("About", "About", "Home")</li>
+                            <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>*@
+    <style>
+        .LayoutImglogo{
+            width: 70px;
+            height: 70px;
+            margin-top:-10px;
+            margin-left:-40px;
+            margin-bottom:0px;
+        }
+    </style>
+    
+    <div class="container body-content ">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

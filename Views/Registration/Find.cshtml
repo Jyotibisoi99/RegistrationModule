@@ -1,0 +1,60 @@
+﻿@model Registration_Project.Models.EmployeeModel
+
+@{
+    ViewBag.Title = "Find";
+}
+
+<table id="Employeecrudtable" align="center" border="1">
+    <thead>
+        <tr>
+
+            <th>EmployeeId</th>
+            <th>EmpName</th>
+            <th>EmailId</th>
+            <th>Phone</th>
+            <th>Address</th>
+            <th>Gender</th>
+            <th>Designation</th>
+            <th>DOJ</th>
+            <th>Salary</th>
+            <th>IsActive</th>
+            <th>DepartmentId</th>
+            <th>Password</th>
+            <th>Age</th>
+            <th>BloodGrp</th>
+            @*<th>Actions</th>*@
+
+        </tr>
+    </thead>
+    <tbody>
+        @*@foreach (var item in Model)
+        {*@
+            <tr>
+                <td>@Model.EmployeeId</td>
+                <td>@Model.EmpName</td>
+                <td>@Model.EmailId</td>
+                <td>@Model.Phone</td>
+                <td>@Model.Address</td>
+                <td>@Model.Gender</td>
+                <td>@Model.Designation</td>
+                <td>@Model.DOJ</td>
+                <td>@Model.Salary</td>
+                <td>@(Model.ISactive ? "Yes":"No")</td>
+                <td>@Model.DepartmentId</td>
+                <td>@Model.Password</td>
+                <td>@Model.Age</td>
+                <td>@Model.BloodGroup</td>
+                @*<td>
+                    @Html.ActionLink("Edit", "Update", new { id = @Model.EmployeeId })
+                    @{
+                        var confirmMessage = @Model.ISactive ? "Are you sure you want delete this Record?" : "Your Record already inactive?";
+                    }
+                    @Html.ActionLink("Delete", "Delete", new { id = @Model.EmployeeId },
+                                     new { onclick = "return confirm('" + confirmMessage + "');" })
+                    <a href="/Registration/Delete/@item.EmployeeId">delete</a>
+                </td>*@
+            </tr>
+            @Html.ActionLink("Back to list","Display")
+    </tbody>
+</table>
+

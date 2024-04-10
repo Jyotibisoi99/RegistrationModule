@@ -1,0 +1,42 @@
+﻿@model Registration_Project.Models.EmployeeModel
+@{
+    ViewBag.Title = "ITDepartment";
+}
+
+<h2>IT Department</h2>
+<table border="0">
+    <tr>
+        <th>Employee Id</th>
+        <th>Employee Name</th>
+        <th>Email Id</th>
+        <th>Age</th>
+        <th>Phone</th>
+        <th>Address</th>
+        <th>Gender</th>
+        <th>Designation</th>
+        <th>Date Of Join</th>
+        <th>Salary</th>
+        @*<th>IsActive</th>*@
+        <th>Department Id</th>
+        @*<th>Password</th>*@
+
+        <th>Blood Group</th>
+        <th>Actions</th>
+    </tr>
+
+    <tr align="center">
+        <td>@ViewBag.itresult.EmpId</td>
+        <td>@ViewBag.itresult.EmpName </td>
+        <td>@ViewBag.itresult.EmailId </td>
+        <td>@ViewBag.itresult.Age </td>
+        <td>@ViewBag.itresult.Phone </td>
+        <td>@ViewBag.itresult.Address </td>
+        <td>@ViewBag.itresult.Gender </td>
+        <td>@ViewBag.itresult.Designation </td>
+        <td>@ViewBag.itresult.DOJ </td>
+        <td>@ViewBag.itresult.Salary </td>
+        <td>@ViewBag.itresult.DepartmentId</td>
+        <td>@ViewBag.itresult.BloodGroup</td>
+    </tr>
+
+</table>

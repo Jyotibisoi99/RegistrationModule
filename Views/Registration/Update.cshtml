@@ -1,0 +1,182 @@
+﻿@model Registration_Project.Models.EmployeeModel
+
+@{ ViewBag.Title = "Insert"; }
+<title>REGISTRATION FORM</title>
+<script src="~/JS/Jquery.js"></script>
+<link href="~/CSS/Style.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/JS/Jquery.js"></script>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<link href="~/CSS/Style.css" rel="stylesheet" />
+<div class="container">
+    <h2>REGISTRATION FORM</h2>
+
+    <form id="registrationForm" action="#" method="post">
+
+        <div>
+            <input type="hidden" value="@Model.EmployeeId" name="EmployeeId" />
+        </div>
+        <div class="form-group">
+
+            <label for="name" class="col-sm-2 ">FullName</label>
+
+            <input type="text" id="name" name="EmpName" placeholder="Enter FullName" class="form-control radio-inline" value="@Model.EmpName" />
+
+            <span class="error" id="nameError"></span>
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label for="email" class="col-sm-2">EmailId</label>
+
+            <input type="email" id="email" name="EmailId" placeholder="name@example.com" class="form-control radio-inline" value="@Model.EmailId">
+
+            <span class="error" id="emailError"></span>
+
+        </div>
+        <div class="form-group">
+            <label for="pass" class="col-sm-2">Password</label>
+            <input type="password" id="pass" name="Password" placeholder="Enter Passwprd" class="form-control radio-inline" value="@Model.Password" />
+            <span class="error" id="passError"></span>
+        </div>
+        @*<div class="form-group">
+                <label for="conpass" class="col-sm-2">Confirm Password</label>
+                <input type="password" id="conpass" name="ConfirmPassword" placeholder="Reenter your password" class="form-control radio-inline" />
+                <span class="error" id="6"></span>
+            </div>*@
+        <div class="form-group">
+            <label for="age" class="col-sm-2">Age</label>
+            <input type="text" id="age" name="Age" placeholder="Enter Age" class="form-control radio-inline" value="@Model.Age" />
+            <span class="error" id="ageError"></span>
+        </div>
+
+        <div class="form-group">
+
+            <label for="phone" class="col-sm-2">Phone</label>
+
+            <input type="text" id="phone" name="phone" placeholder="Enter PhoneNo" class="form-control radio-inline" value="@Model.Phone">
+
+            <span class="error" id="phoneError"></span>
+
+        </div>
+
+
+
+        <div class="form-group">
+
+            <label class="col-sm-2 ">Gender</label>
+
+            <input type="radio" id="male" name="gender" value="male" @(Model.Gender == "male" ? "checked" : "")> Male
+
+            <input type="radio" id="female" name="gender" value="female" @(Model.Gender == "female" ? "checked" : "")> Female
+
+            <span class="error" id="genderError"></span>
+
+        </div>
+        <div class="form-group">
+            <label for="bloodgrp" class="col-sm-2">Blood Group</label>
+            <select id="bloodgrp" name="BloodGroup" class="form-control">
+                <option value="0">Select Blood Group</option>
+                <option value="A+" @(Model.BloodGroup == "A+" ? "selected" : "")>A+</option>
+                <option value="A-" @(Model.BloodGroup == "A-" ? "selected" : "")>A-</option>
+                <option value="B+" @(Model.BloodGroup == "B+" ? "selected" : "")>B+</option>
+                <option value="B-" @(Model.BloodGroup == "B-" ? "selected='selected'" : "")>B-</option>
+                <option value="AB+" @(Model.BloodGroup == "AB+" ? "selected='selected'" : "")>AB+</option>
+                <option value="AB-" @(Model.BloodGroup == "AB-" ? "selected='selected'" : "")>AB-</option>
+                <option value="O+" @(Model.BloodGroup == "O+" ? "selected='selected'" : "")>O+</option>
+                <option value="O-" @(Model.BloodGroup == "O-" ? "selected='selected'" : "")>O-</option>
+            </select>
+            <span class="error" id="bloodgrpError"></span>
+
+        </div>
+
+        <div class="form-group">
+
+            <label for="designation" class="col-sm-2">Designation</label>
+
+            @*<input type="text" id="designation" name="Designation" class="form-control radi radio-inline" value="@Model.Designation" />*@
+            <select id="designation" name="Designation" class="form-control">
+                <option value="0">Select Designation</option>
+                <option value=".Net Developer" @(Model.Designation== ".Net Developer" ? "selected" : "")>.Net Developer</option>
+                <option value="Java Developer" @(Model.Designation== "Java Developer" ? "selected" : "")>Java Developer</option>
+                <option value="Python Developer" @(Model.Designation== "Python Developer" ? "selected" : "")>Python Developer</option>
+            </select>
+
+            <span class="error" id="designationError"></span>
+
+        </div>
+
+        <div class="form-group">
+
+            <label for="dateofjoin" class="col-sm-2">Date of Join</label>
+            <input type="date" id="dateofjoin" name="DOJ" class="form-control radio-inline" value="@Model.DOJ@*.( " dd-MM-yyyy HH:mm:ss")*@">
+
+            <span class="error" id="dateofjoinError"></span>
+
+        </div>
+
+        <div class="form-group">
+
+            <label for="salary" class="col-sm-2 ">Salary</label>
+
+            <input type="number" id="salary" name="salary" placeholder="Enter Salary" class="form-control radio-inline" value="@Model.Salary">
+
+            <span class="error" id="salaryError"></span>
+
+        </div>
+
+        @*<div class="form-group">
+
+                <label for="active" class="col-sm-2 ">Active</label>
+
+                <input type="checkbox" id="active" name="ISactive" class="radio-inline">
+
+
+            </div>*@
+
+        <div class="form-group">
+
+            <label class="col-sm-2 ">Department Number</label>
+
+            <select class="form-control" id="deptno" name="DepartmentId" value="@Model.DepartmentId">
+
+                <option value="0">Select Department</option>
+
+                <option value="10" @(Model.DepartmentId == 10 ? "selected" : "")>It</option>
+
+                <option value="20" @(Model.DepartmentId == 20 ? "selected" : "")>Operations</option>
+
+                <option value="30" @(Model.DepartmentId == 30 ? "selected" : "")>HR</option>
+            </select>
+
+            <span class="error" id="departmentError"></span>
+
+        </div>
+
+        <div class="form-group">
+
+            <label for="address" class="col-sm-2">Address</label>
+
+            @*<input type="" id="address" name="address" placeholder="Enter Address" class="form-control radio-inline" />*@
+
+            <textarea id="address" name="address" rows="5" placeholder="Enter Address" class="form-control radio-inline">@Model.Address</textarea>
+
+            <span class="error" id="addressError"></span>
+
+        </div>
+
+        <div class="form-group">
+
+            <input type="submit" value="Update" class="btn-primary">
+            <a href="@Url.Action("DisplayEmpList", "Registration")"><input type="button" value="Cancel" class="alert-danger"></a>
+
+        </div>
+
+        @*<div class="form-group">
+                <input type="reset" value="Cancel" style="color:blue" />
+            </div>*@
+    </form>
+
+</div>
