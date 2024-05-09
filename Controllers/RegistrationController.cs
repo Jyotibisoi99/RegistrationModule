@@ -6,7 +6,6 @@ using System.Web.Mvc;
 using Registration_Project.Models;
 using Registration_Project.DAL;
 
-
 namespace Registration_Project.Controllers
 {
     public class RegistrationController : Controller
@@ -17,19 +16,10 @@ namespace Registration_Project.Controllers
         {
             return View();
         }
-        [HttpPost]
-        public ActionResult Insert(EmployeeModel emp)
+        public ActionResult Display(int? id)
         {
-
-
-            Registrationdal obj = new Registrationdal();
-            emp.ISactive = true;
-            obj.InsertEmployee(emp);
-            TempData["imessage"] = "Record inserted successfuly";
-
-            return RedirectToAction("DisplayEmpList");
+            return View();
         }
-
         [HttpGet]
         public ActionResult Update(int id)
         {
@@ -37,32 +27,32 @@ namespace Registration_Project.Controllers
             var str = obj1.DisplayEmployee(id).Find(e => e.EmployeeId == id);
             return View(str);
         }
-        [HttpPost]
-        public ActionResult Update(EmployeeModel obj)
-        {
-            Registrationdal obj1 = new Registrationdal();
-            obj.ISactive = true;
-            obj1.UpdateEmployee(obj);
-            TempData["umessage"] = "Employee spdated successfully";
-            return RedirectToAction("DisplayEmpList");
-        }
+       // [HttpPost]
+        //public ActionResult Update(EmployeeModel obj)
+        //{
+        //    Registrationdal obj1 = new Registrationdal();
+        //    obj.ISactive = true;
+        //    obj1.UpdateEmployee(obj);
+        //    TempData["umessage"] = "Employee updated successfully";
+        //    return RedirectToAction("DisplayEmpList");
+        //}
         // [Route("EmployeeRecords")]
         // [ActionName ("DisplayEmpRecords")]
+        [HttpGet]
         public ActionResult DisplayEmpList(int? id)
         {
-            Registrationdal obj = new Registrationdal();
-            var model = obj.DisplayEmployee(id);
-            return View(model);
+            //Registrationdal obj = new Registrationdal();
+            //var model = obj.DisplayEmployee(id);
+            return View();
 
             //return View(obj.Display());
         }
-
         public JsonResult FindActiveStatus(int? AtiveResult, int? txtSearchResult)
         {
 
-            Registrationdal obj = new Registrationdal();
-            var ActiveStatus = obj.DisplayEmployee(AtiveResult, txtSearchResult);
-            return Json(ActiveStatus, JsonRequestBehavior.AllowGet);
+            //Registrationdal obj = new Registrationdal();
+            //var ActiveStatus = obj.DisplayEmployee(AtiveResult, txtSearchResult);
+            return Json(/*ActiveStatus,*/ JsonRequestBehavior.AllowGet);
         }
         [HttpGet]
         //public ActionResult Find(int id)
@@ -71,21 +61,23 @@ namespace Registration_Project.Controllers
         //    EmployeeModel emp = obj.GetEmployee(id);
         //    return View(emp);
         //}
+        #region MVC Delete Actionmethod
+        //public ActionResult Delete(int id)
+        //{
+        //    EmployeeModel obj = new EmployeeModel() { EmployeeId = id, ISactive = false };
+        //    Registrationdal obj1 = new Registrationdal();
+        //    obj1.DeleteEmp(obj);
+        //    TempData["dmessage"] = "Record deleted successfully";
+        //    return RedirectToAction("DisplayEmpList");
 
-        public ActionResult Delete(int id)
-        {
-            EmployeeModel obj = new EmployeeModel() { EmployeeId = id, ISactive = false };
-            Registrationdal obj1 = new Registrationdal();
-            obj1.DeleteEmp(obj);
-            TempData["dmessage"] = "Record deleted successfully";
-            return RedirectToAction("DisplayEmpList");
+        //}
+        #endregion
 
-        }
-        public JsonResult IsEmailAvailable(string email)
+        public JsonResult IsEmailAvailable(string email1)
         {
             Registrationdal obj = new Registrationdal();
             //bool isEmailAvailable = obj.CheckEmail(email);
-            if (obj.CheckEmail(email))
+            if (obj.CheckEmail(email1))
                 return Json("Found", JsonRequestBehavior.AllowGet);
             else
                 return Json("Not found", JsonRequestBehavior.AllowGet);
@@ -116,7 +108,7 @@ namespace Registration_Project.Controllers
         public ActionResult Find2(int id)
         {
             Registrationdal obj = new Registrationdal();
-          var str=obj.DisplayEmployee(id).Find(emp => emp.EmployeeId == id);
+            var str = obj.DisplayEmployee(id).Find(emp => emp.EmployeeId == id);
 
             return View(str);
 

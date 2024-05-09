@@ -27,7 +27,7 @@ namespace Registration_Project
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Registration", action = "DisplayEmpList", id = UrlParameter.Optional }
+                defaults: new { controller = "Registration", action = "Display", id = UrlParameter.Optional }
             );
         }
     }

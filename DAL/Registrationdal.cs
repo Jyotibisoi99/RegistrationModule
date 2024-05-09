@@ -16,8 +16,9 @@ namespace Registration_Project.DAL
         string sqlcon = ConfigurationManager.ConnectionStrings["myconn"].ToString();
 
 
-        public void InsertEmployee(EmployeeModel obj1)
+        public string InsertEmployee(EmployeeModel obj1)
         {
+            string successMessage = "";
             //Create connection by using sqlconnection class
             SqlConnection con = new SqlConnection(sqlcon);
             //Open Connection
@@ -27,7 +28,7 @@ namespace Registration_Project.DAL
             SqlCommand cmd = new SqlCommand(Query, con);
             //Inform that we are using stored procedure
             cmd.CommandType = CommandType.StoredProcedure;
-            //Add value to stored procedure
+            //Add value to stored procedure using parameters collection
             cmd.Parameters.AddWithValue("@EmpName", obj1.EmpName);
             cmd.Parameters.AddWithValue("@EmailId", obj1.EmailId);
             cmd.Parameters.AddWithValue("@Phone", obj1.Phone);
@@ -36,15 +37,22 @@ namespace Registration_Project.DAL
             cmd.Parameters.AddWithValue("@Designation", obj1.Designation);
             cmd.Parameters.AddWithValue("@DOJ", obj1.DOJ);
             cmd.Parameters.AddWithValue("@Salary", obj1.Salary);
-            cmd.Parameters.AddWithValue("@IsActive", obj1.ISactive);
+           // cmd.Parameters.AddWithValue("@IsActive", obj1.ISactive);
             cmd.Parameters.AddWithValue("@DepartmentId", obj1.DepartmentId);
             cmd.Parameters.AddWithValue("@Password", obj1.Password);
             cmd.Parameters.AddWithValue("@Age", obj1.Age);
             cmd.Parameters.AddWithValue("@BloodGroup", obj1.BloodGroup);
+            // Output parameter
+            SqlParameter successMessageParameter = new SqlParameter("@SuccessMessage", SqlDbType.VarChar, 100);
+            successMessageParameter.Direction = ParameterDirection.Output;
+            cmd.Parameters.Add(successMessageParameter);
             //Execute Query by using ExecuteNonQuery
             cmd.ExecuteNonQuery();
             //Close connection
             con.Close();
+            // Retrieve output parameter value
+            successMessage = Convert.ToString(successMessageParameter.Value);
+            return successMessage;
 
         }
         public void UpdateEmployee(EmployeeModel obj1)
@@ -69,13 +77,8 @@ namespace Registration_Project.DAL
             cmd.Parameters.AddWithValue("@Password", obj1.Password);
             cmd.Parameters.AddWithValue("@Age", obj1.Age);
             cmd.Parameters.AddWithValue("@BloodGroup", obj1.BloodGroup);
-
-
             cmd.ExecuteNonQuery();
-
             con.Close();
-
-
         }
         public List<EmployeeModel> DisplayEmployee(int? id = null)
         {

@@ -14,6 +14,7 @@ namespace Registration_Project.Controllers
         {
             ViewBag.itResult  = TempData["getemp"];
             return View();
+           
         }
         public ActionResult OperationsDepartment()
         {

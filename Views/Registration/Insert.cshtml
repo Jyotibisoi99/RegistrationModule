@@ -2,41 +2,33 @@
 
 @{ ViewBag.Title = "Insert"; }
 <title>REGISTRATION FORM</title>
-@*<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
-<link rel="stylesheet" href="/resources/demos/style.css">*@
-
-@*<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-
-<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>*@
-<link href="~/CSS/Style.css" rel="stylesheet" />
-<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/jquery-3.7.1.min.js"></script>
 <script src="~/JS/Jquery.js"></script>
-
-
+<link href="~/CSS/Style.css" rel="stylesheet" />
 @*<script>
 
-    $(document).ready(function () {
+        $(document).ready(function () {
 
-        $("#dateofjoin").datepicker();
+            $("#dateofjoin").datepicker();
 
-    });
+        });
 
-</script>*@
-
-
+    </script>*@
 
 
 
+
+<div id="status" class="hidden"></div>
 <div class="container BgImg1 ">
 
     <div class="BGColor">
         <h2 align="center">REGISTRATION FORM</h2>
 
         <form id="registrationForm" action="@Url.Action("Insert", "Registration")" method="post">
-            
+
 
             <div style="text-align:right">
-                <a href="@Url.Action("DisplayEmpList","Registration")" style="color:blue">Back to Employee Details</a>
+                <a href="@Url.Action("Display","Registration")" style="color:blue">Back to Employee Details</a>
             </div>
 
             <div class="col-sm-12">
@@ -160,12 +152,12 @@
 
                 @*<div class="form-group">
 
-                    <label for="active" class="col-sm-2 ">Active</label>
+                        <label for="active" class="col-sm-2 ">Active</label>
 
-                    <input type="checkbox" id="active" name="ISactive" class="radio-inline">
+                        <input type="checkbox" id="active" name="ISactive" class="radio-inline">
 
 
-                </div>*@
+                    </div>*@
 
                 <div id="lblColour" class="form-group col-sm-12">
 
@@ -200,7 +192,7 @@
                 <div class="btncontainer col-sm-12">
                     <div class="form-group btnmargin ">
 
-                        <input type="submit" value="Register" class=" btn btn-primary">
+                        <input type="button" id="btnSubmit" value="Register" class=" btn btn-primary" @*onclick="AddEmployeefun()"*@>
 
                     </div>
 
@@ -213,3 +205,35 @@
     </div>
 
 </div>
+<script src="~/Scripts/jquery-3.7.1.min.js"></script>
+<script>
+    function AddEmployeefun() {
+        $.ajax({
+            url: 'https://localhost:44337/api/EmployeeWebApi',
+            type: 'Post',
+            dataType: 'json',
+            data: $('#registrationForm').serialize(),
+            success: function (response) {
+                if (response === 'Record inserted successfully') {
+                    $('#status').html('<div class="alert alert-success">' + response + '<button type="button" class="close" data-dismiss="alert"><span>&times;</span></button></div>');
+                    $('#status').removeClass('hidden');
+                    setTimeout(function () {
+                        $('#status').fadeOut();
+                    }, 4000);
+                } else {
+                    alert('Not success');
+                }
+                //To clear all the textbox after inserting record and to keep focus at 1st txtbox.
+                $('#registrationForm').trigger("reset");
+                $('#name').focus();
+            },
+            error: function error() {
+                alert("Insert error");
+            }
+        });
+    }
+
+</script>
+
+
+
