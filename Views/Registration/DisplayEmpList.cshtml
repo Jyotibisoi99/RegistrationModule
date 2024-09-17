@@ -1,20 +1,21 @@
 ﻿@model List<Registration_Project.Models.EmployeeModel>
-
 @{
-    ViewBag.Title = "DisplayEmployeeList";
+    ViewBag.Title = "DisplayEmpList";
 }
+
+<h2>DisplayEmpList</h2>
 <script src="~/JS/AlertMsg.js"></script>
 <script src="~/JS/Jquery.js"></script>
 <link href="~/CSS/Style.css" rel="stylesheet" />
 <script src="~/Scripts/jquery-3.4.1.min.js"></script>
 @*<script>
-    function funname() {
-        var flag = $("#tx1").val();
-        if (flag.length == 0) {
-        }
-        window.location.href = '@Url.Action("Find", "Registration")/' + flag;
-    }
-</script>*@
+            function funname() {
+                var flag = $("#tx1").val();
+                if (flag.length == 0) {
+                }
+                window.location.href = '@Url.Action("Find", "Registration")/' + flag;
+            }
+    </script>*@
 
 <div>
     @if (TempData["umessage"] == "Employee updated successfully")
@@ -49,13 +50,13 @@
     <form id="Searchform">
         <div style="display:flex ; flex-direction:row">
 
-            <input type="search" id="txtSearch" placeholder="Enter Employee Id" class="form-control" /><br />
+            <input type="text" id="txtSearch" placeholder="Enter Employee Id" class="form-control" /><br />
             <select id="ddlIsActive" class="form-control" style="width:120px">
                 <option value="1" selected>Active</option>
                 <option value="0">In-Active</option>
 
             </select>
-            <input type="button" class="btn btn-warning" value="Search" id="btnSearch" />
+            <input type="button" class="btn btn-warning" value="Search" id="btnSearch" onclick="FindEmployee()" />
             <span id="Searcherror" style="color:red"></span>
 
         </div>
@@ -89,81 +90,177 @@
         </tr>
     </thead>
     <tbody class="tbody">
-        @foreach (var item in Model)
-        {
-            <tr align="center">
-                <td>@item.EmpId</td>
-                <td>@item.EmpName</td>
-                <td>@item.EmailId</td>
-                <td>@item.Phone</td>
-                <td>@item.Address</td>
-                <td>@item.Gender</td>
-                <td>@item.Designation</td>
-                <td>@item.DOJ</td>
-                <td>@item.Salary</td>
-                @*<td>@(item.ISactive ? "Yes":"No")</td>*@
-                <td>@(item.DepartmentId==10 ? "IT" : @item.DepartmentId==20?"Operations":"HR")</td>
-                @*<td>@item.Password</td>*@
-                <td>@item.Age</td>
-                <td>@item.BloodGroup</td>
-                <td>
-                    @Html.ActionLink("View", "GetDeptEmployee", new { id=item.EmployeeId,deptName = item.DepartmentName} )||
-                    @Html.ActionLink("Edit", "Update", new { id = item.EmployeeId }) ||
-                    @{
-                        var confirmMessage = item.ISactive ? "Are you sure you want delete this Record?" : "Your Record already inactive?";
-                    }
-                    @Html.ActionLink("Delete", "Delete", new { id = item.EmployeeId },
-                                     new { onclick = "return confirm('" + confirmMessage + "');" })
-                </td>
-            </tr>
-        }
+        @*@foreach (var item in Model)
+            {
+                <tr align="center">
+                    <td>@item.EmpId</td>
+                    <td>@item.EmpName</td>
+                    <td>@item.EmailId</td>
+                    <td>@item.Phone</td>
+                    <td>@item.Address</td>
+                    <td>@item.Gender</td>
+                    <td>@item.Designation</td>
+                    <td>@item.DOJ</td>
+                    <td>@item.Salary</td>
+                    <td>@(item.ISactive ? "Yes":"No")</td>
+                    <td>@(item.DepartmentId==10 ? "IT" : @item.DepartmentId==20?"Operations":"HR")</td>
+                    <td>@item.Password</td>
+                    <td>@item.Age</td>
+                    <td>@item.BloodGroup</td>
+                    <td>
+                        @Html.ActionLink("View", "GetDeptEmployee", new { id = item.EmployeeId, deptName = item.DepartmentName })||
+                        @Html.ActionLink("Edit", "Update", new { id = item.EmployeeId }) ||
+                        @{
+                            var confirmMessage = item.ISactive ? "Are you sure you want delete this Record?" : "Your Record already inactive?";
+                        }
+                        @Html.ActionLink("Delete", "Delete", new { id = item.EmployeeId },
+                                         new { onclick = "return confirm('" + confirmMessage + "');" })
+                    </td>
+                </tr>
+            }*@
     </tbody>l
 </table>
 
+@*<script>
+        $(document).ready(function () {
+            $('#btnSearch').click(function () {
+                var ActiveStatus = $('#ddlIsActive').val();
+                var Search = $('#txtSearch').val().trim();
+
+                $.ajax({
+                    url: '/Registration/FindActiveStatus',//URL of the controller action
+                    type: 'Post',
+                    data: { AtiveResult: ActiveStatus, txtSearchResult: Search },
+                    success: function (response) {
+                        var tbldata = '';
+                        $.each(response, function (key, item) {
+                            tbldata += '<tr align="center">';
+                            tbldata += '<td>' + item.EmpId + '</td>';
+                            tbldata += '<td>' + item.EmpName + '</td>';
+                            tbldata += '<td>' + item.EmailId + '</td>';
+                            tbldata += '<td>' + item.Phone + '</td>';
+                            tbldata += '<td>' + item.Address + '</td>';
+                            tbldata += '<td>' + item.Gender + '</td>';
+                            tbldata += '<td>' + item.Designation + '</td>';
+                            tbldata += '<td>' + item.DOJ + '</td>';
+                            tbldata += '<td>' + item.Salary + '</td>';
+                            tbldata += '<td>' + item.DepartmentName + '</td>';
+                            tbldata += '<td>' + item.Age + '</td>';
+                            tbldata += '<td>' + item.BloodGroup + '</td>';
+                            if (item.ISactive)
+                                tbldata += '<td><a href="/Registration/Update?id=' + item.EmployeeId + '">Edit</a> || <a href="/Employee/Delete?id"' + item.EmployeeId + '" >Delete</a ></td > ';
+                            else
+                                tbldata += '<td><a href ="/Registration/Update?id=' + item.EmployeeId + '">Edit</a></td>';
+
+
+                            tbldata += '</tr>';
+                        });
+                        $('.tbody').html(tbldata);
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('Error:', error);
+                    }
+
+                })
+
+            })
+        })
+    </script>*@
+<script src="~/Scripts/jquery-3.7.1.min.js"></script>
 <script>
     $(document).ready(function () {
-        $('#btnSearch').click(function ()
-        {
-            var ActiveStatus = $('#ddlIsActive').val();
-            var Search = $('#txtSearch').val().trim();
+        $.ajax({
+            url: 'https://localhost:44337/api/EmployeeWebApi',
+            type: 'Get',
+            dataType: 'json',
+            success: function (response) {
+                $.each(response, function (key, value) {
+                    var tbldata = '<tr><td>' + value.EmpId +
+                        '</td><td>' + value.EmpName +
+                        '</td><td>' + value.EmailId +
+                        '</td><td>' + value.Phone +
+                        '</td><td>' + value.Address +
+                        '</td><td>' + value.Gender +
+                        '</td><td>' + value.Designation +
+                        '</td><td>' + value.DOJ +
+                        '</td><td>' + value.Salary +
+                        '</td><td>' + value.DepartmentName +
+                        '</td><td>' + value.Age +
+                        '</td><td>' + value.BloodGroup +
+                        '</td>';
+                    tbldata += '<td><a href="/Registration/Update?id=' + value.EmployeeId + '">Edit</a> || <a href="/Registration/Delete?id=' + value.EmployeeId + '">Delete</a></td>';
 
-            $.ajax({
-                url: '/Registration/FindActiveStatus',//URL of the controller action
-                type: 'Post',
-                data: { AtiveResult: ActiveStatus, txtSearchResult: Search},
-                success: function (response) {
-                    var tbldata ='';
-                    $.each(response, function (key, item) {
-                        tbldata += '<tr align="center">';
-                        tbldata += '<td>' + item.EmpId + '</td>';
-                        tbldata += '<td>' + item.EmpName + '</td>';
-                        tbldata += '<td>' + item.EmailId + '</td>';
-                        tbldata += '<td>' + item.Phone + '</td>';
-                        tbldata += '<td>' + item.Address + '</td>';
-                        tbldata += '<td>' + item.Gender + '</td>';
-                        tbldata += '<td>' + item.Designation + '</td>';
-                        tbldata += '<td>' + item.DOJ+ '</td>';
-                        tbldata += '<td>' + item.Salary + '</td>';
-                        tbldata += '<td>' + item.DepartmentName+ '</td>';
-                        tbldata += '<td>' + item.Age + '</td>';
-                        tbldata += '<td>' + item.BloodGroup + '</td>';
-                        if (item.ISactive)
-                            tbldata += '<td><a href="/Registration/Update?id=' + item.EmployeeId + '">Edit</a> || <a href="/Registration/Delete?id"' + item.EmployeeId + '" >Delete</a ></td > ';
-                        else
-                           tbldata += '<td><a href ="/Registration/Update?id=' + item.EmployeeId + '">Edit</a></td>';
+                    //if (value.ISactive) {
+                    //    tbldata += '<td><a href="/Registration/Update?id=' + value.EmployeeId + '">Edit</a> || <a href="/Registration/Delete?id=' + value.EmployeeId + '">Delete</a></td>';
+                    //} else {
+                    //    tbldata += '<td><a href="/Registration/Update?id=' + value.EmployeeId + '">Edit</a></td>';
+                    //}
 
+                    tbldata += '</tr>';
+                    $('.tbody').append(tbldata);
+                });
+            },
+            error: function () {
+                alert("Error on server");
+            }
+        });
 
-                        tbldata += '</tr>';
-                    });
-                    $('.tbody').html(tbldata);
-                },
-                error: function (xhr, status, error) {
-                    console.error('Error:', error);
-                }
- 
-            })
+    });
 
-        })
-    })
+    function FindEmployee() {
+        var ActiveStatus = $('#ddlIsActive').val();
+        var Search = $('#txtSearch').val().trim();
+        $.ajax({
+            url: 'https://localhost:44337/api/EmployeeWebApi/GetEmployees',
+            type: 'Get',
+            data: { AtiveResult: ActiveStatus, txtSearchResult: Search },
+            dataType: 'json',
+            success: function (response) {
+                $('.tbody').empty();
+                $.each(response, function (key, value) {
+                    var tbldata = '<tr><td>' + value.EmpId +
+                        '</td><td>' + value.EmpName +
+                        '</td><td>' + value.EmailId +
+                        '</td><td>' + value.Phone +
+                        '</td><td>' + value.Address +
+                        '</td><td>' + value.Gender +
+                        '</td><td>' + value.Designation +
+                        '</td><td>' + value.DOJ +
+                        '</td><td>' + value.Salary +
+                        '</td><td>' + value.DepartmentName +
+                        '</td><td>' + value.Age +
+                        '</td><td>' + value.BloodGroup + '</td>';
+                    if (value.ISactive) {
+                        tbldata += '<td><a href="/Registration/Update?id=' + value.EmployeeId + '">Edit</a> || <a href="#" onclick="Deletefun(' + value.EmployeeId + ')">Delete</a></td>';
+                    } else {
+                        tbldata += '<td><a href="/Registration/Update?id=' + value.EmployeeId + '">Edit</a></td>';
+                    }
+                    tbldata += '</tr>';
+                    $('.tbody').append(tbldata);
+                });
+            },
+            error: function () {
+                alert("Error on server");
+            }
+        });
+    }
+
+</script>
+<script>
+    function Deletefun() {
+        $.ajax({
+            url: 'https://localhost:44337/api/EmployeeWebApi/' + EmployeeId,
+            type: 'Put',
+            dataType: 'json',
+            success: function () {
+                alert('Record Deleted successfully');
+
+            },
+            error: function () {
+                alert('Not Deleting.')
+            }
+
+        });
+    }
 </script>
 

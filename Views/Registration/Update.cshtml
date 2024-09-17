@@ -2,12 +2,11 @@
 
 @{ ViewBag.Title = "Insert"; }
 <title>REGISTRATION FORM</title>
-<script src="~/JS/Jquery.js"></script>
+
 <link href="~/CSS/Style.css" rel="stylesheet" />
-<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/jquery-3.7.1.slim.js"></script>
 <script src="~/JS/Jquery.js"></script>
-<script src="~/Scripts/jquery-3.4.1.min.js"></script>
-<link href="~/CSS/Style.css" rel="stylesheet" />
+
 <div class="container">
     <h2>REGISTRATION FORM</h2>
 
@@ -27,15 +26,15 @@
         </div>
 
 
-        <div class="form-group">
+        @*<div class="form-group">
 
-            <label for="email" class="col-sm-2">EmailId</label>
+                <label for="email" class="col-sm-2">EmailId</label>
 
-            <input type="email" id="email" name="EmailId" placeholder="name@example.com" class="form-control radio-inline" value="@Model.EmailId">
+                <input type="email" id="email" name="EmailId" placeholder="name@example.com" class="form-control radio-inline" value="@Model.EmailId">
 
-            <span class="error" id="emailError"></span>
+                <span class="error" id="emailError"></span>
 
-        </div>
+            </div>*@
         <div class="form-group">
             <label for="pass" class="col-sm-2">Password</label>
             <input type="password" id="pass" name="Password" placeholder="Enter Passwprd" class="form-control radio-inline" value="@Model.Password" />
@@ -99,9 +98,9 @@
             @*<input type="text" id="designation" name="Designation" class="form-control radi radio-inline" value="@Model.Designation" />*@
             <select id="designation" name="Designation" class="form-control">
                 <option value="0">Select Designation</option>
-                <option value=".Net Developer" @(Model.Designation== ".Net Developer" ? "selected" : "")>.Net Developer</option>
-                <option value="Java Developer" @(Model.Designation== "Java Developer" ? "selected" : "")>Java Developer</option>
-                <option value="Python Developer" @(Model.Designation== "Python Developer" ? "selected" : "")>Python Developer</option>
+                <option value=".Net Developer" @(Model.Designation == ".Net Developer" ? "selected" : "")>.Net Developer</option>
+                <option value="Java Developer" @(Model.Designation == "Java Developer" ? "selected" : "")>Java Developer</option>
+                <option value="Python Developer" @(Model.Designation == "Python Developer" ? "selected" : "")>Python Developer</option>
             </select>
 
             <span class="error" id="designationError"></span>
@@ -111,7 +110,7 @@
         <div class="form-group">
 
             <label for="dateofjoin" class="col-sm-2">Date of Join</label>
-            <input type="date" id="dateofjoin" name="DOJ" class="form-control radio-inline" value="@Model.DOJ@*.( " dd-MM-yyyy HH:mm:ss")*@">
+            <input type="date" id="dateofjoin" name="DOJ" class="form-control radio-inline" value="@Model.DOJ">
 
             <span class="error" id="dateofjoinError"></span>
 
@@ -169,8 +168,8 @@
 
         <div class="form-group">
 
-            <input type="submit" value="Update" class="btn-primary">
-            <a href="@Url.Action("DisplayEmpList", "Registration")"><input type="button" value="Cancel" class="alert-danger"></a>
+            <input type="button" value="Update" class="btn-primary btn-update"  @*onclick="UpdateEmployeefun()*@">
+            <a href="@Url.Action("Display", "Registration")"><input type="button" value="Cancel" class="alert-danger"></a>
 
         </div>
 
@@ -180,3 +179,40 @@
     </form>
 
 </div>
+
+<script>
+    $(".btn-update").click(function () {
+        
+
+            var empObj1 = {
+                EmpName: $('#name').val(),
+                Password: $('#pass').val(),
+                Age: $('#age').val(),
+                Phone: $('#phone').val(),
+                Address: $('#address').val(),
+                Gender: $('input[name="gender"]:checked').val() ? $('input[name="gender"]:checked').val() : 'Male',
+                BloodGroup: $('#bloodgrp').val(),
+                Designation: $('#designation').val(),
+                Salary: $('#salary').val(),
+                DepartmentId: $('#deptno').val(),
+        };
+       
+            $.ajax({
+                url: 'https://localhost:44337/api/EmployeeWebApi/Empupdate',
+                type: 'PUT',
+                dataType: 'json',
+                data: empObj1,
+                success: function (response) {
+                    alert('Updated successfully');
+                },
+                error: function error() {
+                    alert('Update error');
+                }
+            });
+        
+    });
+
+    /* $(document).ready(function () {*/
+   
+   /* });*/
+</script>
